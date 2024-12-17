@@ -62,10 +62,10 @@ datafile = WaymoDataFileReader(data_fullpath)
 datafile_iter = iter(datafile)  # initialize dataset iterator
 
 ## Initialize object detection
-configs_det = det.load_configs(model_name='fpn_resnet') # options are 'darknet', 'fpn_resnet'
+configs_det = det.load_configs(model_name='darknet') # options are 'darknet', 'fpn_resnet'
 model_det = det.create_model(configs_det)
 
-configs_det.use_labels_as_objects = False # True = use groundtruth labels as objects, False = use model-based detection
+configs_det.use_labels_as_objects = True # True = use groundtruth labels as objects, False = use model-based detection
 
 ## Uncomment this setting to restrict the y-range in the final project
 # configs_det.lim_y = [-25, 25] 
@@ -164,7 +164,7 @@ while True:
         ## Performance evaluation for object detection
         if 'measure_detection_performance' in exec_list:
             print('measuring detection performance')
-            det_performance = eval.measure_detection_performance(detections, frame.laser_labels, valid_label_flags, configs_det.min_iou)     
+            det_performance = eval.measure_detection_performance(detections, frame.laser_labels, valid_label_flags)     
         else:
             print('loading detection performance measures from file')
             # load different data for final project vs. mid-term project

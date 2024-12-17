@@ -15,7 +15,6 @@ import cv2
 import numpy as np
 import torch
 import zlib
-from dataset_pb2 import MatrixFloat
 import open3d
 
 # add project directory to python path to enable relative imports
@@ -28,6 +27,7 @@ sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 # waymo open dataset reader
 from tools.waymo_reader.simple_waymo_open_dataset_reader import utils as waymo_utils
 from tools.waymo_reader.simple_waymo_open_dataset_reader import dataset_pb2, label_pb2
+from tools.waymo_reader.simple_waymo_open_dataset_reader.dataset_pb2 import MatrixFloat
 
 # object detection tools and helper functions
 import misc.objdet_tools as tools
@@ -160,6 +160,7 @@ def bev_from_pcl(lidar_pcl, configs):
     intensity_map = np.zeros((configs.bev_height + 1, configs.bev_width + 1))
 
     # step 2 : re-arrange elements in lidar_pcl_cpy by sorting first by x, then y, then -z (use numpy.lexsort)
+    lidar_pcl_cpy = np.copy(lidar_pcl)
     lidar_pcl_cpy[lidar_pcl_cpy[:,3]>1.0,3] = 1.0
     idx_intensity = np.lexsort((-lidar_pcl_cpy[:, 3], lidar_pcl_cpy[:, 1], lidar_pcl_cpy[:, 0]))
     lidar_pcl_cpy = lidar_pcl_cpy[idx_intensity]

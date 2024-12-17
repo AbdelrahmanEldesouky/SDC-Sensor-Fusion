@@ -233,7 +233,7 @@ def detect_objects(input_bev_maps, model, configs):
     objects = [] 
 
     ## step 1 : check whether there are any detections
-    if detections:
+    if len(detections) > 0:
         ## step 2 : loop over all detections
         for obj in detections:
             id, bev_x, bev_y, z, h, bev_w, bev_l, yaw = obj
