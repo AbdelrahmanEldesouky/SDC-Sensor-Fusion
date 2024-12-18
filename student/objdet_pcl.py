@@ -68,9 +68,9 @@ def show_pcl(pcl):
     vis.add_geometry(pcd)
     
     # step 5 : visualize point cloud and keep window open until right-arrow is pressed (key-code 262)
-    while g_flag:
-        vis.poll_events()
-        vis.update_renderer()
+    # while g_flag:
+    vis.poll_events()
+    vis.update_renderer()
 
     #######
     ####### ID_S1_EX2 END #######     
@@ -176,11 +176,11 @@ def bev_from_pcl(lidar_pcl, configs):
     intensity_map[np.int_(lidar_pcl_top[:, 0]), np.int_(lidar_pcl_top[:, 1])] = lidar_pcl_top[:, 3] / (np.amax(lidar_pcl_top[:, 3])-np.amin(lidar_pcl_top[:, 3]))
 
     ## step 5 : temporarily visualize the intensity map using OpenCV to make sure that vehicles separate well from the background
-    img_intensity = intensity_map * 256
-    img_intensity = img_intensity.astype(np.uint8)
-    cv2.imshow('Intensity Map', img_intensity)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # img_intensity = intensity_map * 256
+    # img_intensity = img_intensity.astype(np.uint8)
+    # cv2.imshow('Intensity Map', img_intensity)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     #######
     ####### ID_S2_EX2 END ####### 
@@ -200,11 +200,11 @@ def bev_from_pcl(lidar_pcl, configs):
     height_map[np.int_(lidar_pcl_top[:, 0]), np.int_(lidar_pcl_top[:, 1])] = lidar_pcl_top[:, 2] / float(np.abs(configs.lim_z[1] - configs.lim_z[0]))
 
     ## step 3 : temporarily visualize the intensity map using OpenCV to make sure that vehicles separate well from the background
-    img_height = height_map * 256
-    img_height = img_height.astype(np.uint8)
-    cv2.imshow('Height Map', img_height)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # img_height = height_map * 256
+    # img_height = img_height.astype(np.uint8)
+    # cv2.imshow('Height Map', img_height)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     #######
     ####### ID_S2_EX3 END #######       
