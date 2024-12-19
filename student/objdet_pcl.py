@@ -68,9 +68,9 @@ def show_pcl(pcl):
     vis.add_geometry(pcd)
     
     # step 5 : visualize point cloud and keep window open until right-arrow is pressed (key-code 262)
-    # while g_flag:
-    vis.poll_events()
-    vis.update_renderer()
+    while g_flag:
+        vis.poll_events()
+        vis.update_renderer()
 
     #######
     ####### ID_S1_EX2 END #######     

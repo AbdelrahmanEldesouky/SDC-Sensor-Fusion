@@ -189,5 +189,6 @@ def compute_performance_stats(det_performance_all):
             ax.text(0.05, 0.95, textboxes[idx], transform=ax.transAxes, fontsize=10,
                     verticalalignment='top', bbox=props)
     plt.tight_layout()
-    plt.show()
+    plt.savefig('detection_performance.png')
+    plt.close()
 

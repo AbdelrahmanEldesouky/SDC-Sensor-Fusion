@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------
 # Project "Track 3D-Objects Over Time"
-# Copyright (C) 2020, Dr. Antje Muntzinger / Dr. Andreas Haja.  
+# Copyright (C) 2020, Dr. Antje Muntzinger / Dr. Andreas Haja.
 #
 # Purpose of this file : Loop over all frames in a Waymo Open Dataset file,
 #                        detect and track objects and visualize results
@@ -54,10 +54,10 @@ import misc.params as params
 ## Set parameters and perform initializations
 
 ## Select Waymo Open Dataset file and frame numbers
-data_filename = "training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord"  # Sequence 1
+# data_filename = "training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord"  # Sequence 1
 # data_filename = 'training_segment-10072231702153043603_5725_000_5745_000_with_camera_labels.tfrecord' # Sequence 2
-# data_filename = 'training_segment-10963653239323173269_1924_000_1944_000_with_camera_labels.tfrecord' # Sequence 3
-show_only_frames = [100, 101]  # show only frames in interval for debugging
+data_filename = 'training_segment-10963653239323173269_1924_000_1944_000_with_camera_labels.tfrecord' # Sequence 3
+show_only_frames = [0, 200]  # show only frames in interval for debugging
 
 ## Prepare Waymo Open Dataset file for loading
 data_fullpath = os.path.join(
@@ -90,25 +90,25 @@ np.random.seed(10)  # make random values predictable
 
 ## Selective execution and visualization
 exec_detection = [
-    "bev_from_pcl",
-    "detect_objects",
-    "validate_object_labels",
-    "measure_detection_performance",
+    # "bev_from_pcl",
+    # "detect_objects",
+    # "validate_object_labels",
+    # "measure_detection_performance",
 ]  # options are 'bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance'; options not in the list will be loaded from file
-exec_tracking = ["perform_tracking"]  # options are 'perform_tracking'
+exec_tracking = []  # options are 'perform_tracking'
 exec_visualization = [
     # "show_range_image",
     # "show_bev",
-    # "show_pcl",
-    "show_labels_in_image",
-    "show_objects_and_labels_in_bev",
+    "show_pcl",
+    # "show_labels_in_image",
+    # "show_objects_and_labels_in_bev",
     # "show_objects_in_bev_labels_in_camera",
-    "show_tracks",
+    # "show_tracks",
     "show_detection_performance",
-    "make_tracking_movie",
+    # "make_tracking_movie",
 ]  # options are 'show_range_image', 'show_bev', 'show_pcl', 'show_labels_in_image', 'show_objects_and_labels_in_bev', 'show_objects_in_bev_labels_in_camera', 'show_tracks', 'show_detection_performance', 'make_tracking_movie'
 exec_list = make_exec_list(exec_detection, exec_tracking, exec_visualization)
-vis_pause_time = 1  # set pause time between frames in ms (0 = stop between frames until key is pressed)
+vis_pause_time = 0  # set pause time between frames in ms (0 = stop between frames until key is pressed)
 
 
 ##################
@@ -372,11 +372,12 @@ while True:
 ## Evaluate object detection performance
 if "show_detection_performance" in exec_list:
     eval.compute_performance_stats(det_performance_all)
-    print("end of dectection performance evaluation")
+    print("end of detection performance evaluation")
 
 ## Plot RMSE for all tracks
 if "show_tracks" in exec_list:
     plot_rmse(manager, all_labels, configs_det)
+    print("end of rmse plot")
 
 ## Make movie from tracking results
 if "make_tracking_movie" in exec_list:
