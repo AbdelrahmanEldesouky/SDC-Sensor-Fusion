@@ -170,7 +170,7 @@ def plot_tracks(fig, ax, ax2, track_list, meas_list, lidar_labels, lidar_labels_
 
 
 def plot_rmse(manager, all_labels, configs_det):
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(12, 8))
     plot_empty = True
     
     # loop over all tracks
@@ -212,23 +212,26 @@ def plot_rmse(manager, all_labels, configs_det):
         if cnt != 0:
             plot_empty = False
             rmse_sum /= cnt
-            # plot RMSE
-            ax.plot(time, rmse, marker='x', label='RMSE track ' + str(track_id) + '\n(mean: ' 
-                    + '{:.2f}'.format(rmse_sum) + ')')
+            # Plot RMSE
+            ax.plot(time, rmse, marker='x', label=f'Track {track_id} RMSE\nMean: {rmse_sum:.2f}')
     
-    # maximize window     
-    mng = plt.get_current_fig_manager()
-    # mng.frame.Maximize(True)
-    ax.set_ylim(0,1)
-    if plot_empty: 
+    # Handle empty plot case
+    if plot_empty:
         print('No confirmed tracks found to plot RMSE!')
     else:
-        plt.legend(loc='center left', shadow=True, fontsize='x-large', bbox_to_anchor=(0.9, 0.5))
-        plt.xlabel('time [s]')
-        plt.ylabel('RMSE [m]')
-        plt.savefig('rmse_performance.png')
-        plt.close()
+        ax.set_ylim(0, 1)
+        ax.set_title('RMSE Performance for Confirmed Tracks', fontsize=16)
+        ax.set_xlabel('Time [s]', fontsize=14)
+        ax.set_ylabel('RMSE [m]', fontsize=14)
+        ax.legend(loc='upper right', fontsize=12, shadow=True)
+        ax.grid(True)
         
+        # Save plot with a meaningful name
+        plt.tight_layout()
+        plt.savefig('rmse_performance.png')
+        plt.show()
+        plt.close()
+       
         
 def make_movie(path):
     # read track plots
