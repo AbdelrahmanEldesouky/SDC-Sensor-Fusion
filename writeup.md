@@ -7,14 +7,14 @@
 - **Implement System Matrix F** and **Process Noise Covariance Q**: I updated the filter to handle a 6D state vector. The `F()` function returns the constant-velocity transition matrix, and `Q()` computes the corresponding process noise covariance.
 - **Predict and Update** : I wrote the `predict()` method to project the state/covariance forward in time, and the `update()` method to incorporate sensor measurements into the state (via **γ** and **S**).
 
-![step1](img_final/step1.png)
+![step1](img_final/step_1.png)
 
 **Step 2 (Track & Track Management)**
 
 - **Track Initialization** : In the `Track` class, I replaced fixed initialization with a proper setup of `self.x` and `self.P` based on measurements transformed into vehicle coordinates.
 - **Track Management** : In `Trackmanagement`, I handled unassigned measurements (creating new tracks) and unassigned tracks (decreasing scores, deleting stale or overly uncertain tracks). I also implemented logic to handle updated tracks, incrementing their score and transitioning them from “tentative” to “confirmed.”
 
-![step2](img_final/step2.png)
+![step2](img_final/step_2.png)
 
 **Data Association**
 I use a single nearest-neighbor data association approach, guided by the Mahalanobis distance. For each frame, I build an association matrix between existing tracks and incoming measurements.
@@ -25,13 +25,13 @@ I use a single nearest-neighbor data association approach, guided by the Mahalan
 * **Finding Closest Pairs** : With `get_closest_track_and_meas()`, I located the minimum valid distance in the matrix, removed that row/column, and updated track assignments accordingly.
 * **Mahalanobis Distance (MHD)** : I implemented the `MHD()` function to compute the distance needed for gating and track association.
 
-![step3](img_final/step3.png)
+![step3](img_final/step_3.png)
 
 **Step 4 (Camera Sensor)**
 
 * **Camera Measurement Function** : I expanded the sensor model for the camera by implementing a nonlinear projection function (`get_hx`) and a Jacobian (`get_H`). I also updated the measurement class to incorporate camera measurement noise covariance.
 
-![step4](img_final/step4.png)
+![step4](img_final/step_4.png)
 
 ### Results and Challenges
 
