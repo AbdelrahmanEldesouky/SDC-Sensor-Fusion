@@ -68,9 +68,9 @@ def show_pcl(pcl):
     vis.add_geometry(pcd)
     
     # step 5 : visualize point cloud and keep window open until right-arrow is pressed (key-code 262)
-    while g_flag:
-        vis.poll_events()
-        vis.update_renderer()
+    # while g_flag:
+    #     vis.poll_events()
+    #     vis.update_renderer()
 
     #######
     ####### ID_S1_EX2 END #######     
@@ -145,7 +145,7 @@ def bev_from_pcl(lidar_pcl, configs):
     lidar_pcl[:, 1] = np.floor((lidar_pcl[:, 1] - configs.lim_y[0]) / bev_discretization_y).astype(np.int32)
 
     # step 4 : visualize point-cloud using the function show_pcl from a previous task
-    show_pcl(lidar_pcl)
+    # show_pcl(lidar_pcl)
     
     #######
     ####### ID_S2_EX1 END #######     

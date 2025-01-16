@@ -29,7 +29,9 @@ class Filter:
     """Kalman filter class"""
 
     def __init__(self):
-        pass
+        self.dt = params.dt
+        self.q = params.q  
+        self.dim_state = 6  
 
     def F(self):
         ############
